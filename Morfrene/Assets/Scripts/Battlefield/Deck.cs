@@ -72,7 +72,7 @@ public class Deck : MonoBehaviour
     public void DeckClicked()
     {
         //NewDeck();
-        DrawRandom(10, true);
-        DrawRandom(10, false);
+        DrawRandom(1, true);
+        DrawRandom(1, false);
     }
 }

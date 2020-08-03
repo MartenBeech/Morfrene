@@ -19,6 +19,17 @@ public class Card : MonoBehaviour
         }
     }
 
+    public string title = "";
+    //FF - Fireball
+    //II
+    //EE - Stoneskin
+    //WW
+    //FI
+    //FE - Meteor
+    //FW
+    //IE - Mudblast
+    //IW - Watergun
+    //EW
     public int value = 0;
     public string shape = "";
     public Sprite image;
