@@ -55,10 +55,10 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Hero.cs" />
-    <Compile Include="Assets\Scripts\Deck.cs" />
-    <Compile Include="Assets\Scripts\Card.cs" />
-    <Compile Include="Assets\Scripts\Asset.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Hero.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Card.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Deck.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Asset.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
