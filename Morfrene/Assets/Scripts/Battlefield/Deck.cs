@@ -16,7 +16,7 @@ public class Deck : MonoBehaviour
         NewDeck();
     }
 
-    public void DrawRandom(int amount)
+    public void DrawRandom(int amount, bool player)
     {
         Card card = new Card();
         int rnd;
@@ -26,10 +26,12 @@ public class Deck : MonoBehaviour
         {
             rnd = Random.Range(0, cardsSize);
             card = cards[rnd];
-            space = card.GetAvailableSpace(true);
-            if (space < 20)
+            space = card.GetAvailableSpace(player);
+            if (space < Card.SIZE)
             {
                 card.AddCard(card, space);
+                AnimaCard animaCard = new AnimaCard();
+                animaCard.MoveDeckCard(card, space);
                 cardsSize--;
                 cards[rnd].value = cards[cardsSize].value;
                 cards[rnd].shape = cards[cardsSize].shape;
@@ -42,6 +44,8 @@ public class Deck : MonoBehaviour
     public void NewDeck()
     {
         cardsSize = 52;
+        Card card = new Card();
+        card.RemoveAllCards();
         for (int i = 0; i < cardsSize; i++)
         {
             cards[i] = new Card();
@@ -63,5 +67,12 @@ public class Deck : MonoBehaviour
                 cards[i].shape = "Energy";
             }
         }
+    }
+
+    public void DeckClicked()
+    {
+        //NewDeck();
+        DrawRandom(10, true);
+        DrawRandom(10, false);
     }
 }

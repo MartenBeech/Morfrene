@@ -25,13 +25,11 @@ public class Card : MonoBehaviour
 
     public void AddCard(Card card, int space)
     {
-        
-        if (space < SIZE)
-        {
-            cards[space] = card;
-            occupied[space] = true;
-            Cards[space].GetComponentInChildren<Text>().text = cards[space].shape + " " + cards[space].value;
-        }
+        cards[space] = new Card();
+        cards[space].value = card.value;
+        cards[space].shape = card.shape;
+        cards[space].image = card.image;
+        occupied[space] = true;
     }
 
     public void RemoveCard(int space)
