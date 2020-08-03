@@ -6,14 +6,68 @@ using UnityEngine.UI;
 public class Card : MonoBehaviour
 {
     public const int SIZE = 20;
-    public static GameObject[] cards = new GameObject[SIZE];
+    public static GameObject[] Cards = new GameObject[SIZE];
+    public static Card[] cards = new Card[SIZE];
+    public static bool[] occupied = new bool[SIZE];
 
     private void Start()
     {
         for (int i = 0; i < SIZE/2; i++)
         {
-            cards[i] = GameObject.Find("Card0" + i);
-            cards[i + SIZE/2] = GameObject.Find("Card1" + i);
+            Cards[i] = GameObject.Find("Card0" + i);
+            Cards[i + SIZE/2] = GameObject.Find("Card1" + i);
         }
+    }
+
+    public int value = 0;
+    public string shape = "";
+    public Sprite image;
+
+    public void AddCard(Card card, int space)
+    {
+        
+        if (space < SIZE)
+        {
+            cards[space] = card;
+            occupied[space] = true;
+            Cards[space].GetComponentInChildren<Text>().text = cards[space].shape + " " + cards[space].value;
+        }
+    }
+
+    public void RemoveCard(int space)
+    {
+        cards[space] = null;
+        occupied[space] = false;
+    }
+
+    public void RemoveAllCards()
+    {
+        for (int i = 0; i < SIZE; i++)
+        {
+            RemoveCard(i);
+        }
+    }
+
+    public int GetAvailableSpace(bool player)
+    {
+        int lowRange;
+        int highRange;
+        if (player)
+        {
+            lowRange = 0;
+            highRange = SIZE / 2;
+        }
+        else
+        {
+            lowRange = SIZE / 2;
+            highRange = SIZE;
+        }
+
+        for (int i = lowRange; i < highRange; i++)
+        {
+            if (!occupied[i])
+                return i;
+        }
+        return SIZE;
     }
 }
