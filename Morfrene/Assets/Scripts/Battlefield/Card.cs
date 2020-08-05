@@ -9,6 +9,7 @@ public class Card : MonoBehaviour
     public static GameObject[] Cards = new GameObject[SIZE];
     public static Card[] cards = new Card[SIZE];
     public static bool[] occupied = new bool[SIZE];
+    public static bool[] selected = new bool[SIZE];
 
     private void Start()
     {
@@ -17,36 +18,40 @@ public class Card : MonoBehaviour
             Cards[i] = GameObject.Find("Card0" + i);
             Cards[i + SIZE/2] = GameObject.Find("Card1" + i);
         }
+
+        for (int i = 0; i < SIZE; i++)
+        {
+            Cards[i].GetComponentInChildren<Image>().enabled = false;
+        }
     }
 
-    public string title = "";
-    //FF - Fireball
-    //II
-    //EE - Stoneskin
-    //WW
-    //FI
-    //FE - Meteor
-    //FW
-    //IE - Mudblast
-    //IW - Watergun
-    //EW
     public int value = 0;
-    public string shape = "";
+    public string element = "";
     public Sprite image;
 
     public void AddCard(Card card, int space)
     {
         cards[space] = new Card();
         cards[space].value = card.value;
-        cards[space].shape = card.shape;
+        cards[space].element = card.element;
         cards[space].image = card.image;
         occupied[space] = true;
     }
 
     public void RemoveCard(int space)
     {
-        cards[space] = null;
-        occupied[space] = false;
+        if (occupied[space])
+        {
+            if (selected[space])
+            {
+                CardClicked(space);
+            }
+            cards[space] = null;
+            occupied[space] = false;
+            Cards[space].GetComponentInChildren<Text>().text = null;
+            Cards[space].GetComponentInChildren<Image>().color = Color.white;
+            Cards[space].GetComponentInChildren<Image>().enabled = false;
+        }
     }
 
     public void RemoveAllCards()
@@ -78,5 +83,39 @@ public class Card : MonoBehaviour
                 return i;
         }
         return SIZE;
+    }
+
+    public void CardClicked(int i)
+    {
+        if (occupied[i])
+        {
+            if (!selected[i])
+            {
+                selected[i] = true;
+                Cards[i].GetComponentInChildren<Transform>().position = new Vector3(
+                    Cards[i].GetComponentInChildren<Transform>().position.x,
+                    Cards[i].GetComponentInChildren<Transform>().position.y + 0.25f,
+                    Cards[i].GetComponentInChildren<Transform>().position.z);
+            }
+            else
+            {
+                selected[i] = false;
+                Cards[i].GetComponentInChildren<Transform>().position = new Vector3(
+                    Cards[i].GetComponentInChildren<Transform>().position.x,
+                    Cards[i].GetComponentInChildren<Transform>().position.y - 0.25f,
+                    Cards[i].GetComponentInChildren<Transform>().position.z);
+            }
+        }
+    }
+
+    public List<int> GetSelectedCards()
+    {
+        List<int> list = new List<int>();
+        for (int i = 0; i < SIZE; i++)
+        {
+            if (selected[i])
+                list.Add(i);
+        }
+        return list;
     }
 }

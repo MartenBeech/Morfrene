@@ -34,7 +34,7 @@ public class Deck : MonoBehaviour
                 animaCard.MoveDeckCard(card, space);
                 cardsSize--;
                 cards[rnd].value = cards[cardsSize].value;
-                cards[rnd].shape = cards[cardsSize].shape;
+                cards[rnd].element = cards[cardsSize].element;
                 cards[rnd].image = cards[cardsSize].image;
                 cards[cardsSize] = null;
             }
@@ -43,28 +43,29 @@ public class Deck : MonoBehaviour
 
     public void NewDeck()
     {
-        cardsSize = 52;
+        cardsSize = 40;
         Card card = new Card();
         card.RemoveAllCards();
         for (int i = 0; i < cardsSize; i++)
         {
             cards[i] = new Card();
-            cards[i].value = (i % 13) + 1;
-            if (i < 13)
+            cards[i].value = (i % 10) + 1;
+
+            if (i < 10)
             {
-                cards[i].shape = "Chrono";
+                cards[i].element = "Fire";
             }
-            else if (i < 26)
+            else if (i < 20)
             {
-                cards[i].shape = "Velocity";
+                cards[i].element = "Water";
             }
-            else if (i < 39)
+            else if (i < 30)
             {
-                cards[i].shape = "Force";
+                cards[i].element = "Earth";
             }
-            else if (i < 52)
+            else if (i < 40)
             {
-                cards[i].shape = "Energy";
+                cards[i].element = "Air";
             }
         }
     }
@@ -73,6 +74,18 @@ public class Deck : MonoBehaviour
     {
         //NewDeck();
         DrawRandom(1, true);
-        DrawRandom(1, false);
+        //DrawRandom(1, false);
+        Asset asset = new Asset();
+        asset.AddAsset("Elemental Sword");
+        asset.AddAsset("Fireball");
+        asset.AddAsset("Tidal Wave");
+        asset.AddAsset("Stoneblock");
+        asset.AddAsset("Rewind");
+        asset.AddAsset("Magmattack");
+        asset.AddAsset("Meteor");
+        asset.AddAsset("Fire Ash");
+        asset.AddAsset("Poison");
+        asset.AddAsset("Monsoon");
+        asset.AddAsset("Clarity");
     }
 }

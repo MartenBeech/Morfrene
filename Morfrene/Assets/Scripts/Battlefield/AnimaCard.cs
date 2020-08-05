@@ -44,8 +44,20 @@ public class AnimaCard : MonoBehaviour
 
         else if (counter <= 0)
         {
-            Card.Cards[_to].GetComponentInChildren<Text>().text = Card.cards[_to].shape + " " + Card.cards[_to].value;
-            Card.Cards[_to].GetComponentInChildren<Image>().sprite = Card.cards[_to].image;
+            string value = (Card.cards[_to].value < 10 ? Card.cards[_to].value.ToString() : "A");
+
+            Card.Cards[_to].GetComponentInChildren<Text>().text = "     " + Card.cards[_to].element.Substring(0, 1) + "\n<size=34>" + Card.cards[_to].value + "</size>\n" + Card.cards[_to].element.Substring(0, 1) + "     ";
+            if (Card.cards[_to].element == "Fire")
+                Card.Cards[_to].GetComponentInChildren<Text>().color = Color.red;
+            else if (Card.cards[_to].element == "Water")
+                Card.Cards[_to].GetComponentInChildren<Text>().color = Color.blue;
+            else if (Card.cards[_to].element == "Earth")
+                Card.Cards[_to].GetComponentInChildren<Text>().color = Color.green;
+            else if (Card.cards[_to].element == "Air")
+                Card.Cards[_to].GetComponentInChildren<Text>().color = Color.gray;
+
+            Card.Cards[_to].GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("BattlefieldImages/" + Card.cards[_to].element + "Background");
+            Card.Cards[_to].GetComponentInChildren<Image>().enabled = true;
             Destroy(gameObject);
         }
 
@@ -70,5 +82,10 @@ public class AnimaCard : MonoBehaviour
 
         prefab.GetComponentInChildren<Image>().sprite = Deck.Decks.GetComponentInChildren<Image>().sprite;
         prefab = Instantiate(prefab, startSet.transform.position, startSet.transform.rotation, parent.transform);
+    }
+
+    public void MoveCardAsset(Card _card, int to)
+    {
+        
     }
 }
