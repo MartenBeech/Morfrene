@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\Battlefield\Card.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Deck.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Asset.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\AnimaCard.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
