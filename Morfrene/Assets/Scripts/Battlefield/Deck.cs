@@ -80,7 +80,7 @@ public class Deck : MonoBehaviour
         asset.AddAsset("Fireball");
         asset.AddAsset("Tidal Wave");
         asset.AddAsset("Stoneblock");
-        asset.AddAsset("Rewind");
+        asset.AddAsset("Fast Forward");
         asset.AddAsset("Magmattack");
         asset.AddAsset("Meteor");
         asset.AddAsset("Fire Ash");

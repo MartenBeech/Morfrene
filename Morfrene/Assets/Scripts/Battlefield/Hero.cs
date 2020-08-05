@@ -20,5 +20,4 @@ public class Hero : MonoBehaviour
 
     public int health = 0;
     public int maxHealth = 0;
-
 }
