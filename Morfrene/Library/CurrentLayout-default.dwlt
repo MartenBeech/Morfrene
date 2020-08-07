@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 24229
+  controlID: 18058
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 24230
+  controlID: 18063
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 24231
+  controlID: 18064
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -396,10 +396,10 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 723}
-      m_SelectedIDs: 768f0000
-      m_LastClickedID: 36726
-      m_ExpandedIDs: f6daffff08dbffff1adbffffa8e4ffff5eecffff72ecffff2aedffff3cedffff4eedffff66edfffff8edffff305f00002a60000016620000948b0000a08b0000228c00002e8c0000b28c0000e48c0000f88c0000608d0000b28d0000bc8d0000de8d0000128e0000668e0000888e0000f08e0000fc8e0000808f0000
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 5cfbffff423c0000843c0000c63d00001c3e00007a3e0000ac3e0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -459,9 +459,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.3394037, y: 0.07816769, z: -15.758383}
+    m_Target: {x: 0.25639504, y: 0.26436466, z: -16.591724}
     speed: 2
-    m_Value: {x: 0.3394037, y: 0.07816769, z: -15.758383}
+    m_Value: {x: 0.25639504, y: 0.26436466, z: -16.591724}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -512,9 +512,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 6.184574
+    m_Target: 6.207997
     speed: 2
-    m_Value: 6.184574
+    m_Value: 6.207997
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -602,21 +602,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Resources/BattlefieldImages
     m_Globs: []
   m_ViewMode: 1
   m_StartGridSize: 61
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Resources/BattlefieldImages
   m_LastFoldersGridSize: 61
   m_LastProjectPath: C:\Users\morte\Desktop\Background Stuff\Unity\Morfrene\Morfrene
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: d4420000
-    m_LastClickedID: 17108
-    m_ExpandedIDs: 00000000ca42000000ca9a3b
+    m_SelectedIDs: b6470000
+    m_LastClickedID: 18358
+    m_ExpandedIDs: 00000000124100001a41000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -644,7 +644,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ca42000000ca9a3b
+    m_ExpandedIDs: 000000001241000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

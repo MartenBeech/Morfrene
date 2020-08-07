@@ -19,9 +19,6 @@ public class AnimaCard : MonoBehaviour
     private float counterStart;
     private float counter;
 
-
-
-
     private void Awake()
     {
         startPoint = startSet;
@@ -82,10 +79,5 @@ public class AnimaCard : MonoBehaviour
 
         prefab.GetComponentInChildren<Image>().sprite = Deck.Decks.GetComponentInChildren<Image>().sprite;
         prefab = Instantiate(prefab, startSet.transform.position, startSet.transform.rotation, parent.transform);
-    }
-
-    public void MoveCardAsset(Card _card, int to)
-    {
-        
     }
 }

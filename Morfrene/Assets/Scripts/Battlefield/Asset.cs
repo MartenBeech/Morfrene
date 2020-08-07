@@ -13,6 +13,9 @@ public class Asset : MonoBehaviour
     public static Asset[] assets = new Asset[SIZE];
     public static bool[] occupied = new bool[SIZE];
 
+    private static float counter = 0f;
+    private static int iTo;
+
     private void Start()
     {
         Assets[0] = GameObject.Find("Asset0");
@@ -43,6 +46,20 @@ public class Asset : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (counter > 0)
+        {
+            counter -= Time.deltaTime;
+            if (counter <= 0)
+            {
+                Asset asset = new Asset();
+                asset.ActivateAsset(iTo, true);
+            }
+        }
+        
+    }
+
     public string title = "";
     public string element = "";
     public int level = 0;
@@ -50,30 +67,16 @@ public class Asset : MonoBehaviour
     public int minCards = 0;
     public int maxCards = 0;
 
-    public void AssetClicked(int i)
+    public void AddAsset(string title, bool player)
     {
-        List<int> selectedCards = new List<int>();
-        Card card = new Card();
-        selectedCards = card.GetSelectedCards();
-
-        for (int j = 0; j < selectedCards.Count; j++)
+        int iMin = 0;
+        int iMax = 11;
+        if (!player)
         {
-            if (!assets[i].element.Contains(Card.cards[selectedCards[j]].element))
-            {
-                return;
-            }
+            iMin = 11;
+            iMax = 15;
         }
-
-        AnimaAsset animaAsset = new AnimaAsset();
-        for (int j = 0; j < selectedCards.Count; j++)
-        {
-            animaAsset.MoveCardAsset(selectedCards[j], i);
-        }
-    }
-
-    public void AddAsset(string title)
-    {
-        for (int i = 0; i < 11; i++)
+        for (int i = iMin; i < iMax; i++)
         {
             if (occupied[i])
             {
@@ -98,56 +101,78 @@ public class Asset : MonoBehaviour
                     case "Elemental Sword":
                         assets[i].element = "FireWaterEarthAir";
                         assets[i].power = 2;
+                        assets[i].minCards = 1;
+                        assets[i].maxCards = (int)assets[i].power;
                         break;
 
                     case "Fireball":
                         assets[i].element = "Fire";
-                        assets[i].power = 4;
+                        assets[i].power = 60;
+                        assets[i].minCards = 4;
+                        assets[i].maxCards = 4;
                         break;
 
                     case "Tidal Wave":
                         assets[i].element = "Water";
-                        assets[i].power = 4;
+                        assets[i].power = 60;
+                        assets[i].minCards = 4;
+                        assets[i].maxCards = 4;
                         break;
 
                     case "Stoneblock":
                         assets[i].element = "Earth";
-                        assets[i].power = 4;
+                        assets[i].power = 60;
+                        assets[i].minCards = 4;
+                        assets[i].maxCards = 4;
                         break;
 
                     case "Fast Forward":
                         assets[i].element = "Air";
                         assets[i].power = 5;
+                        assets[i].minCards = 4;
+                        assets[i].maxCards = 4;
                         break;
 
                     case "Magmattack":
                         assets[i].element = "FireWater";
                         assets[i].power = 2;
+                        assets[i].minCards = 1;
+                        assets[i].maxCards = 1;
                         break;
 
                     case "Meteor":
                         assets[i].element = "FireEarth";
                         assets[i].power = 2;
+                        assets[i].minCards = 4;
+                        assets[i].maxCards = 10;
                         break;
 
-                    case "Fire Ash":
+                    case "Ash":
                         assets[i].element = "FireAir";
                         assets[i].power = 1;
+                        assets[i].minCards = 1;
+                        assets[i].maxCards = 2;
                         break;
 
                     case "Poison":
                         assets[i].element = "WaterEarth";
                         assets[i].power = 0.4;
+                        assets[i].minCards = 1;
+                        assets[i].maxCards = 2;
                         break;
 
                     case "Monsoon":
                         assets[i].element = "WaterAir";
                         assets[i].power = 1;
+                        assets[i].minCards = 1;
+                        assets[i].maxCards = 2;
                         break;
 
                     case "Clarity":
                         assets[i].element = "EarthAir";
                         assets[i].power = 0.5;
+                        assets[i].minCards = 3;
+                        assets[i].maxCards = 10;
                         break;
                 }
                 DisplayAssetDescription(i);
@@ -163,18 +188,19 @@ public class Asset : MonoBehaviour
         {
             case "Elemental Sword":
                 assets[i].power += 1;
+                assets[i].maxCards = (int)assets[i].power;
                 break;
 
             case "Fireball":
-                assets[i].power += 1;
+                assets[i].power += 15;
                 break;
 
             case "Tidal Wave":
-                assets[i].power += 1;
+                assets[i].power += 15;
                 break;
 
             case "Stoneblock":
-                assets[i].power += 1;
+                assets[i].power += 15;
                 break;
 
             case "Fast Forward":
@@ -189,7 +215,7 @@ public class Asset : MonoBehaviour
                 assets[i].power += 0.5;
                 break;
 
-            case "Fire Ash":
+            case "Ash":
                 assets[i].power += 0.2;
                 break;
 
@@ -208,69 +234,194 @@ public class Asset : MonoBehaviour
         DisplayAssetDescription(i);
     }
 
-    private void DisplayAssetDescription(int i)
+    public void DisplayAssetDescription(int i)
     {
-        TextLevels[i].GetComponentInChildren<Text>().text = "Lvl:\n" + assets[i].level;
-        TextNames[i].GetComponentInChildren<Text>().text = assets[i].title;
-        TextElements[i].GetComponentInChildren<Text>().text = "";
-        if (assets[i].element.Contains("FireWaterEarthAir"))
-            TextElements[i].GetComponentInChildren<Text>().text += "All  ";
-        else
+        if (occupied[i])
         {
-            if (assets[i].element.Contains("Fire"))
-                TextElements[i].GetComponentInChildren<Text>().text += "<color=red>Fire</color>  ";
-            if (assets[i].element.Contains("Water"))
-                TextElements[i].GetComponentInChildren<Text>().text += "<color=blue>Water</color>  ";
-            if (assets[i].element.Contains("Earth"))
-                TextElements[i].GetComponentInChildren<Text>().text += "<color=green>Earth</color>  ";
-            if (assets[i].element.Contains("Air"))
-                TextElements[i].GetComponentInChildren<Text>().text += "<color=gray>Air</color>  ";
+            TextLevels[i].GetComponentInChildren<Text>().text = "Lvl:\n" + assets[i].level;
+            TextNames[i].GetComponentInChildren<Text>().text = assets[i].title;
+            TextElements[i].GetComponentInChildren<Text>().text = "";
+            if (assets[i].element.Contains("FireWaterEarthAir"))
+                TextElements[i].GetComponentInChildren<Text>().text += "All  ";
+            else
+            {
+                if (assets[i].element.Contains("Fire"))
+                    TextElements[i].GetComponentInChildren<Text>().text += "<color=red>Fire</color>  ";
+                if (assets[i].element.Contains("Water"))
+                    TextElements[i].GetComponentInChildren<Text>().text += "<color=blue>Water</color>  ";
+                if (assets[i].element.Contains("Earth"))
+                    TextElements[i].GetComponentInChildren<Text>().text += "<color=green>Earth</color>  ";
+                if (assets[i].element.Contains("Air"))
+                    TextElements[i].GetComponentInChildren<Text>().text += "<color=gray>Air</color>  ";
+            }
+            switch (assets[i].title)
+            {
+                case "Elemental Sword":
+                    Assets[i].GetComponentInChildren<Text>().text = "Use up to " + assets[i].power + " cards.\nDeal X damage.\n(X = combined card value)";
+                    break;
+
+                case "Fireball":
+                    Assets[i].GetComponentInChildren<Text>().text = "Use 4 cards.\nDeal " + assets[i].power + " damage";
+                    break;
+
+                case "Tidal Wave":
+                    Assets[i].GetComponentInChildren<Text>().text = "Use 4 cards.\nHeal for " + assets[i].power;
+                    break;
+
+                case "Stoneblock":
+                    Assets[i].GetComponentInChildren<Text>().text = "Use 4 cards.\nGain " + assets[i].power + " armor";
+                    break;
+
+                case "Fast Forward":
+                    Assets[i].GetComponentInChildren<Text>().text = "Use 4 cards.\nDraw " + assets[i].power + " new cards";
+                    break;
+
+                case "Magmattack":
+                    Assets[i].GetComponentInChildren<Text>().text = "Use 1 card.\nDeal " + assets[i].power + "X damage";
+                    break;
+
+                case "Meteor":
+                    Assets[i].GetComponentInChildren<Text>().text = "Use at least 4 cards.\nDeal " + assets[i].power + "X damage";
+                    break;
+
+                case "Ash":
+                    if (i < 11)
+                        Assets[i].GetComponentInChildren<Text>().text = "Use up to 2 cards.\nDeal " + Hero.heroes[0].fireAshDamage + " damage.\nYour future Ashes deal " + assets[i].power + "X more damage";
+                    else
+                        Assets[i].GetComponentInChildren<Text>().text = "Use up to 2 cards.\nDeal " + Hero.heroes[1].fireAshDamage + " damage.\nYour future Ashes deal " + assets[i].power + "X more damage";
+                    break;
+
+                case "Poison":
+                    Assets[i].GetComponentInChildren<Text>().text = "Use up to 2 cards.\nDeal damage each turn equal to " + assets[i].power + "X";
+                    break;
+
+                case "Monsoon":
+                    Assets[i].GetComponentInChildren<Text>().text = "Use up to 2 cards.\nSteal " + assets[i].power + "X health";
+                    break;
+
+                case "Clarity":
+                    Assets[i].GetComponentInChildren<Text>().text = "Use at least 3 cards.\nYour other cards' value increase by " + assets[i].power + "X";
+                    break;
+            }
         }
-        switch (assets[i].title)
+    }
+
+    public bool CheckAsset(int i)
+    {
+        List<int> cardList = new List<int>();
+        Card card = new Card();
+        cardList = card.GetSelectedCards();
+        if (cardList.Count < assets[i].minCards || cardList.Count > assets[i].maxCards)
+        {
+            return false;
+        }
+        for (int j = 0; j < cardList.Count; j++)
+        {
+            if (!assets[i].element.Contains(Card.cards[cardList[j]].element))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void ActivateAsset(int i, bool player)
+    {
+        Damage damage = new Damage();
+        Deck deck = new Deck();
+        string title = Asset.assets[i].title;
+        Assets[i].GetComponentInChildren<Image>().color = Color.HSVToRGB(0f, 0f, 0.75f);
+        Assets[i].GetComponentInChildren<Button>().enabled = false;
+        switch (title)
         {
             case "Elemental Sword":
-                Assets[i].GetComponentInChildren<Text>().text = "Use up to " + assets[i].power + " cards.\nDeal X damage.\n(X = combined card value)";
+                damage.DealDamage(!player, Card.totalCardValue);
                 break;
 
             case "Fireball":
-                Assets[i].GetComponentInChildren<Text>().text = "Use 4 cards.\nDeal " + assets[i].power + "X damage";
+                damage.DealDamage(!player, Asset.assets[i].power);
                 break;
 
             case "Tidal Wave":
-                Assets[i].GetComponentInChildren<Text>().text = "Use 4 cards.\nHeal for " + assets[i].power + "X";
+                damage.Heal(player, Asset.assets[i].power);
                 break;
 
             case "Stoneblock":
-                Assets[i].GetComponentInChildren<Text>().text = "Use 4 cards.\nGain " + assets[i].power + "X Armor";
+                damage.GainArmor(player, Asset.assets[i].power);
                 break;
 
             case "Fast Forward":
-                Assets[i].GetComponentInChildren<Text>().text = "Use 4 cards.\nDraw " + assets[i].power + " new cards";
+                deck.DrawRandom((int)Asset.assets[i].power, player);
                 break;
 
             case "Magmattack":
-                Assets[i].GetComponentInChildren<Text>().text = "Use 1 card.\nDeal " + assets[i].power + "X damage";
+                damage.DealDamage(!player, Card.totalCardValue * Asset.assets[i].power);
                 break;
 
             case "Meteor":
-                Assets[i].GetComponentInChildren<Text>().text = "Use at least 4 cards.\nDeal " + assets[i].power + "X damage";
+                damage.DealDamage(!player, Card.totalCardValue * Asset.assets[i].power);
                 break;
 
-            case "Fire Ash":
-                Assets[i].GetComponentInChildren<Text>().text = "Use up to 2 cards.\nDeal 1 damage.\nYour future Fire Ashes deal " + assets[i].power + "X more damage";
+            case "Ash":
+                double fireAshDamage;
+                if (player)
+                {
+                    fireAshDamage = Hero.heroes[0].fireAshDamage;
+                }
+                else
+                {
+                    fireAshDamage = Hero.heroes[1].fireAshDamage;
+                }
+
+                damage.DealDamage(!player, fireAshDamage);
+
+                if (player)
+                {
+                    Hero.heroes[0].fireAshDamage += Card.totalCardValue * Asset.assets[i].power;
+                }
+                else
+                {
+                    Hero.heroes[1].fireAshDamage += Card.totalCardValue * Asset.assets[i].power;
+                }
+                DisplayAssetDescription(i);
                 break;
 
             case "Poison":
-                Assets[i].GetComponentInChildren<Text>().text = "Use up to 2 cards.\nDeal damage each turn equal to " + assets[i].power + "X";
+                damage.Poison(!player, Card.totalCardValue * Asset.assets[i].power);
                 break;
 
             case "Monsoon":
-                Assets[i].GetComponentInChildren<Text>().text = "Use up to 2 cards.\nSteal " + assets[i].power + "X health";
+                damage.DealDamage(!player, Card.totalCardValue * Asset.assets[i].power);
+                damage.Heal(player, Card.totalCardValue * Asset.assets[i].power);
                 break;
 
             case "Clarity":
-                Assets[i].GetComponentInChildren<Text>().text = "Use at least 3 cards.\nYour other cards' value increase by " + assets[i].power + "X";
+                damage.UpgradeCards(player, Card.totalCardValue * Asset.assets[i].power);
                 break;
+        }
+    }
+
+    public void AssetClicked(int i)
+    {
+        if (CheckAsset(i))
+        {
+            List<int> selectedCards = new List<int>();
+            Card card = new Card();
+            selectedCards = card.GetSelectedCards();
+
+            Card.totalCardValue = 0;
+            for (int j = 0; j < selectedCards.Count; j++)
+            {
+                Card.totalCardValue += Card.cards[selectedCards[j]].value;
+            }
+
+            AnimaAsset animaAsset = new AnimaAsset();
+            for (int j = 0; j < selectedCards.Count; j++)
+            {
+                animaAsset.MoveCardAsset(selectedCards[j], i);
+                counter = 1;
+                iTo = i;
+            }
         }
     }
 }

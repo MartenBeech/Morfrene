@@ -72,20 +72,20 @@ public class Deck : MonoBehaviour
 
     public void DeckClicked()
     {
-        //NewDeck();
-        DrawRandom(1, true);
+        NewDeck();
+        DrawRandom(10, true);
         //DrawRandom(1, false);
         Asset asset = new Asset();
-        asset.AddAsset("Elemental Sword");
-        asset.AddAsset("Fireball");
-        asset.AddAsset("Tidal Wave");
-        asset.AddAsset("Stoneblock");
-        asset.AddAsset("Fast Forward");
-        asset.AddAsset("Magmattack");
-        asset.AddAsset("Meteor");
-        asset.AddAsset("Fire Ash");
-        asset.AddAsset("Poison");
-        asset.AddAsset("Monsoon");
-        asset.AddAsset("Clarity");
+        asset.AddAsset("Elemental Sword", true);
+        asset.AddAsset("Fireball", true);
+        asset.AddAsset("Tidal Wave", true);
+        asset.AddAsset("Stoneblock", true);
+        asset.AddAsset("Fast Forward", true);
+        asset.AddAsset("Magmattack", true);
+        asset.AddAsset("Meteor", true);
+        asset.AddAsset("Ash", true);
+        asset.AddAsset("Poison", true);
+        asset.AddAsset("Monsoon", true);
+        asset.AddAsset("Clarity", true);
     }
 }

@@ -10,6 +10,7 @@ public class Card : MonoBehaviour
     public static Card[] cards = new Card[SIZE];
     public static bool[] occupied = new bool[SIZE];
     public static bool[] selected = new bool[SIZE];
+    public static int totalCardValue = 0;
 
     private void Start()
     {
@@ -85,6 +86,17 @@ public class Card : MonoBehaviour
         return SIZE;
     }
 
+    public List<int> GetSelectedCards()
+    {
+        List<int> list = new List<int>();
+        for (int i = 0; i < SIZE; i++)
+        {
+            if (selected[i])
+                list.Add(i);
+        }
+        return list;
+    }
+
     public void CardClicked(int i)
     {
         if (occupied[i])
@@ -106,16 +118,5 @@ public class Card : MonoBehaviour
                     Cards[i].GetComponentInChildren<Transform>().position.z);
             }
         }
-    }
-
-    public List<int> GetSelectedCards()
-    {
-        List<int> list = new List<int>();
-        for (int i = 0; i < SIZE; i++)
-        {
-            if (selected[i])
-                list.Add(i);
-        }
-        return list;
     }
 }

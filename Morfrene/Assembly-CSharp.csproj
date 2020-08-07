@@ -57,10 +57,13 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Battlefield\Hero.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Card.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\AnimaAsset.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Deck.cs" />
     <Compile Include="Assets\Scripts\Battlefield\AnimaCard.cs" />
     <Compile Include="Assets\Scripts\Battlefield\Asset.cs" />
-    <Compile Include="Assets\Scripts\Battlefield\AnimaAsset.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Damage.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\AnimaText.cs" />
+    <Compile Include="Assets\Scripts\Battlefield\Enemy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
