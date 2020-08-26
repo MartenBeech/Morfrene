@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Hero : MonoBehaviour
 {
     public const int SIZE = 2;
+    public static GameObject EndTurn;
     public static GameObject[] Heroes = new GameObject[SIZE];
     public static Hero[] heroes = new Hero[SIZE];
     public static bool playerTurn = false;
@@ -18,7 +19,8 @@ public class Hero : MonoBehaviour
             Heroes[i] = GameObject.Find("Hero" + i);
             heroes[i] = new Hero();
         }
-        NewBattle("Earth");
+        EndTurn = GameObject.Find("EndTurn");
+        NewBattle("Fire");
     }
 
     private void Update()
@@ -28,8 +30,25 @@ public class Hero : MonoBehaviour
             counter -= Time.deltaTime;
             if (counter <= 0)
             {
-                Enemy enemy = new Enemy();
-                enemy.EnemyTurn();
+                if (playerTurn)
+                {
+                    for (int i = 0; i < 11; i++)
+                    {
+                        Asset.Assets[i].GetComponentInChildren<Image>().color = Color.white;
+                        Asset.Assets[i].GetComponentInChildren<Button>().enabled = true;
+                    }
+                    EndTurn.GetComponentInChildren<Button>().enabled = true;
+                }
+                else
+                {
+                    for (int i = 11; i < 15; i++)
+                    {
+                        Asset.Assets[i].GetComponentInChildren<Image>().color = Color.white;
+                        Asset.Assets[i].GetComponentInChildren<Button>().enabled = true;
+                    }
+                    Enemy enemy = new Enemy();
+                    enemy.EnemyTurn();
+                }
             }
         }
     }
@@ -109,13 +128,9 @@ public class Hero : MonoBehaviour
         playerTurn = !playerTurn;
 
         Deck deck = new Deck();
+
         if (playerTurn)
         {
-            for (int i = 0; i < 11; i++)
-            {
-                Asset.Assets[i].GetComponentInChildren<Image>().color = Color.white;
-                Asset.Assets[i].GetComponentInChildren<Button>().enabled = true;
-            }
             for (int i = 11; i < 15; i++)
             {
                 Asset.Assets[i].GetComponentInChildren<Button>().enabled = false;
@@ -127,14 +142,12 @@ public class Hero : MonoBehaviour
             {
                 Asset.Assets[i].GetComponentInChildren<Button>().enabled = false;
             }
-            for (int i = 11; i < 15; i++)
-            {
-                Asset.Assets[i].GetComponentInChildren<Image>().color = Color.white;
-                Asset.Assets[i].GetComponentInChildren<Button>().enabled = true;
-            }
-            counter = 2;
+            EndTurn.GetComponentInChildren<Button>().enabled = false;
         }
+
+        counter = 2;
+        
         deck.NewDeck();
-        deck.DrawRandom(5, playerTurn);
+        deck.DrawRandom(10, playerTurn);
     }
 }

@@ -59,6 +59,7 @@ public class Damage : MonoBehaviour
 
     public void UpgradeCards(bool player, double _amount)
     {
+        AnimaText animaText = new AnimaText();
         int iStart = 0;
         if (!player)
         {
@@ -66,12 +67,13 @@ public class Damage : MonoBehaviour
         }
         int amount = (int)_amount;
 
-        for (int i = iStart; i < Card.SIZE/2; i++)
+        for (int i = iStart; i < iStart + Card.SIZE/2; i++)
         {
             if (Card.occupied[i])
             {
                 Card.cards[i].value += amount;
                 Card.Cards[i].GetComponentInChildren<Text>().text = "     " + Card.cards[i].element.Substring(0, 1) + "\n<size=34>" + Card.cards[i].value + "</size>\n" + Card.cards[i].element.Substring(0, 1) + "     ";
+                animaText.DisplayText(Card.Cards[i], "+" + amount.ToString(), Color.green, 1.5f);
             }
         }
     }

@@ -54,7 +54,7 @@ public class Asset : MonoBehaviour
             if (counter <= 0)
             {
                 Asset asset = new Asset();
-                asset.ActivateAsset(iTo, true);
+                asset.ActivateAsset(iTo, Hero.playerTurn);
             }
         }
         
@@ -128,7 +128,7 @@ public class Asset : MonoBehaviour
 
                     case "Fast Forward":
                         assets[i].element = "Air";
-                        assets[i].power = 5;
+                        assets[i].power = 6;
                         assets[i].minCards = 4;
                         assets[i].maxCards = 4;
                         break;
